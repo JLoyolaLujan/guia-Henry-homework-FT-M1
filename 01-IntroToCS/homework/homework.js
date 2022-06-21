@@ -20,7 +20,20 @@ function DecimalABinario(num) {
   }
 
   return espacio.join(""); // turns the array into a string
-   
+  
+
+  /*
+the instructor suggested this during class, way clearer
+
+  var res = "2";
+  while(num !== 0) {
+  res = num/2 + res;
+  num = Math.floor(num/2);
+  }
+
+  return res;
+
+  */
 }
 
 
