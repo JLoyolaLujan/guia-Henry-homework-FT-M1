@@ -19,7 +19,7 @@ function DecimalABinario(num) {
   num = num/2; 
   }
 
-  return espacio.join("");
+  return espacio.join(""); // turns the array into a string
    
 }
 
