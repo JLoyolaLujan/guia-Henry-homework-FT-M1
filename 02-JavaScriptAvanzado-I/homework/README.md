@@ -5,7 +5,8 @@
 
 Determiná que será impreso en la consola, sin ejecutar el código.
 
-> Investiga cuál es la diferencia entre declarar una variable con `var` y directamente asignarle un valor.
+> Investiga cuál es la diferencia entre declarar una variable con `var` y directamente asignarle un valor. "Let limita su scope a un bloque, si es dentro de un if solo se limitara a trabajar dentro de ese if, mientras que var es mas flexible; cuando se trata de hoisting si se llama a una variable creada con let antes de su declaracion devuelve reference error, en cambio var solo da undefined"
+
 
 ```javascript
 x = 1;
@@ -14,24 +15,24 @@ var b = 10;
 var c = function(a, b, c) {
   var x = 10;
   console.log(x); // 10
-  console.log(a); // 5
+  console.log(a); // 8
   var f = function(a, b, c) {
     b = a;
-    console.log(b); // 5
+    console.log(b); // 8
     b = c;
     var x = 5;
   }
   f(a,b,c); 
-  console.log(b); // 5
+  console.log(b); // 9
 }
 c(8,9,10);
-console.log(b); // 5
-console.log(x); // 10
+console.log(b); // 10
+console.log(x); // 1
 ```
 
 ```javascript
 console.log(bar); // undefined 
-console.log(baz); // undefined
+console.log(baz); // reference error (como con let) (sube la declaracion pero no la definicion)
 foo(); // hola
 function foo() { console.log('Hola!'); }
 var bar = 1;
@@ -43,7 +44,7 @@ var instructor = "Tony";
 if(true) {
     var instructor = "Franco";
 }
-console.log(instructor); // Tony, the variable was not called inside the if, it was cloned
+console.log(instructor); // Franco, es re-deflarada dentro del if, var puede hacer eso, let no podria
 ```
 
 ```javascript
@@ -55,7 +56,7 @@ console.log(instructor); // Tony
       console.log(instructor);
    }
 })(); // Franco
-console.log(instructor); // Tony
+console.log(instructor); // Tony, imprime la global, no accede la funcion
 ```
 
 ```javascript
@@ -67,7 +68,7 @@ if (true) {
     console.log(instructor); // The Flash
     console.log(pm); // Reverse Flash
 }
-console.log(instructor); // Tony
+console.log(instructor); // The flash
 console.log(pm); // Franco
 ```
 ### Coerción de Datos
@@ -82,15 +83,15 @@ console.log(pm); // Franco
 "4" - 2 // 2
 "4px" - 2 // NaN
 7 / 0 // Infinity
-{}[0] // undefined
-parseInt("09") // 10, lo interpreta como decimal
+{}[0] // undefined, depende donde lo ejecutemos
+parseInt("09") // 9, convierte a un entero a numero, extrae los numeros de un string
 5 && 2 // 2
 2 && 5 // 5
 5 || 0 // 5
 0 || 5 // 5
-[3]+[3]-[10] // NaN
+[3]+[3]-[10] // concatena los 3 (33) y les resta 10 (23)
 3>2>1 // true
-[] == ![] // false
+[] == ![] // true, porque [] es 0 y ![] es false, y false == 0 es true
 ```
 
 > Si te quedó alguna duda repasá con [este artículo](http://javascript.info/tutorial/object-conversion).
@@ -127,7 +128,7 @@ function getFood(food) {
     return snack;
 }
 
-getFood(false); // doesn't do anything, "if" will only executes if the condition equals a truthy value
+getFood(false); // undefined
 ```
 
 
@@ -149,9 +150,9 @@ var obj = {
 
 console.log(obj.prop.getFullname()); // Aurelio De Rosa
 
-var test = obj.prop.getFullname; 
+var test = obj.prop.getFullname; // no apunta mas al prop sino al scope global
 
-console.log(test()); // returns string of function
+console.log(test()); // buscara fullname en el contexto global, daria Juan Perez
 ```
 
 ### Event loop
@@ -166,5 +167,5 @@ function printing() {
    console.log(4);
 }
 
-printing(); // 3, 1, 4, 2
+printing(); // 1, 4, 3, 2 pese a que 3 tenga set time out 0, estara en espera en el call stack
 ```
