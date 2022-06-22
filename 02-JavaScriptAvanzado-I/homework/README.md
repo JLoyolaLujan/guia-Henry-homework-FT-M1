@@ -13,26 +13,26 @@ var a = 5;
 var b = 10;
 var c = function(a, b, c) {
   var x = 10;
-  console.log(x);
-  console.log(a);
+  console.log(x); // 10
+  console.log(a); // 5
   var f = function(a, b, c) {
     b = a;
-    console.log(b);
+    console.log(b); // 5
     b = c;
     var x = 5;
   }
-  f(a,b,c);
-  console.log(b);
+  f(a,b,c); 
+  console.log(b); // 5
 }
 c(8,9,10);
-console.log(b);
-console.log(x);
+console.log(b); // 5
+console.log(x); // 10
 ```
 
 ```javascript
-console.log(bar);
-console.log(baz);
-foo();
+console.log(bar); // undefined 
+console.log(baz); // undefined
+foo(); // hola
 function foo() { console.log('Hola!'); }
 var bar = 1;
 baz = 2;
@@ -43,54 +43,54 @@ var instructor = "Tony";
 if(true) {
     var instructor = "Franco";
 }
-console.log(instructor);
+console.log(instructor); // Tony, the variable was not called inside the if, it was cloned
 ```
 
 ```javascript
 var instructor = "Tony";
-console.log(instructor);
+console.log(instructor); // Tony
 (function() {
    if(true) {
       var instructor = "Franco";
       console.log(instructor);
    }
-})();
-console.log(instructor);
+})(); // Franco
+console.log(instructor); // Tony
 ```
 
 ```javascript
-var instructor = "Tony";
+var instructor = "Tony"; 
 let pm = "Franco";
 if (true) {
     var instructor = "The Flash";
     let pm = "Reverse Flash";
-    console.log(instructor);
-    console.log(pm);
+    console.log(instructor); // The Flash
+    console.log(pm); // Reverse Flash
 }
-console.log(instructor);
-console.log(pm);
+console.log(instructor); // Tony
+console.log(pm); // Franco
 ```
 ### Coerción de Datos
 
 ¿Cuál crees que será el resultado de la ejecución de estas operaciones?:
 
 ```javascript
-6 / "3"
-"2" * "3"
-4 + 5 + "px"
-"$" + 4 + 5
-"4" - 2
-"4px" - 2
-7 / 0
-{}[0]
-parseInt("09")
-5 && 2
-2 && 5
-5 || 0
-0 || 5
-[3]+[3]-[10]
-3>2>1
-[] == ![]
+6 / "3" // 2
+"2" * "3" // 6
+4 + 5 + "px" // "9px"
+"$" + 4 + 5 // "$45"
+"4" - 2 // 2
+"4px" - 2 // NaN
+7 / 0 // Infinity
+{}[0] // undefined
+parseInt("09") // 10, lo interpreta como decimal
+5 && 2 // 2
+2 && 5 // 5
+5 || 0 // 5
+0 || 5 // 5
+[3]+[3]-[10] // NaN
+3>2>1 // true
+[] == ![] // false
 ```
 
 > Si te quedó alguna duda repasá con [este artículo](http://javascript.info/tutorial/object-conversion).
@@ -102,8 +102,8 @@ parseInt("09")
 
 ```javascript
 function test() {
-   console.log(a);
-   console.log(foo());
+   console.log(a); // if this function was placed after the var a = 5 from above, then 5, otherwise, undefined
+   console.log(foo()); // 2
 
    var a = 1;
    function foo() {
@@ -111,7 +111,7 @@ function test() {
    }
 }
 
-test();
+test(); // undefined, then 2
 ```
 
 Y el de este código? :
@@ -127,7 +127,7 @@ function getFood(food) {
     return snack;
 }
 
-getFood(false);
+getFood(false); // doesn't do anything, "if" will only executes if the condition equals a truthy value
 ```
 
 
@@ -147,11 +147,11 @@ var obj = {
    }
 };
 
-console.log(obj.prop.getFullname());
+console.log(obj.prop.getFullname()); // Aurelio De Rosa
 
-var test = obj.prop.getFullname;
+var test = obj.prop.getFullname; 
 
-console.log(test());
+console.log(test()); // returns string of function
 ```
 
 ### Event loop
@@ -166,5 +166,5 @@ function printing() {
    console.log(4);
 }
 
-printing();
+printing(); // 3, 1, 4, 2
 ```
