@@ -62,7 +62,7 @@ function cacheFunction(cb) {
     valor = cb(); 
   }
   */
-
+/*
   var cache = {};
   return function (arg) {
     if (cache.hasOwnProperty(arg)) {
@@ -72,6 +72,7 @@ function cacheFunction(cb) {
       return cache[arg];
     }
   }
+*/
 
 }
 
