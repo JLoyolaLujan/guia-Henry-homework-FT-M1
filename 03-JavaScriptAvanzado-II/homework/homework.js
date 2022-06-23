@@ -1,5 +1,7 @@
 "use strict";
 
+const { cache } = require("@11ty/eleventy/src/TemplateCache");
+
 // Closures
 
 function counter() {
@@ -48,32 +50,16 @@ function cacheFunction(cb) {
   squareCache(5)    // no volverá a invocar a square, simplemente buscará en la caché cuál es el resultado de square(5) y lo retornará (tip: si usaste un objeto, podés usar hasOwnProperty) 
 
   */
- /*
-  var valor = cb(); 
-  return function(valor) {
-    return valor; 
-  }
-  */
 
-  /*
-  var valor; 
+  
 
-  return function cache() {
-    valor = cb(); 
-  }
-  */
-/*
-  var cache = {};
+  
+  var valor = {}; 
+
   return function (arg) {
-    if (cache.hasOwnProperty(arg)) {
-      return cache[arg];
-    } else {
-      cache[arg] = cb(arg);
-      return cache[arg];
-    }
+    if(valor.hasOwnProperty(arg)) {return valor[arg]}
+    else valor[arg] = cb(arg); return valor[arg]; 
   }
-*/
-
 }
 
 // Bind
